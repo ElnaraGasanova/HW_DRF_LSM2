@@ -1,0 +1,29 @@
+1. Создать курс
+POST запрос: http://localhost:8000/courses/
+{
+    "name":"Джанго"
+}
+2. Вывести список курсов
+GET запрос: http://localhost:8000/courses/
+
+3. Редактировать курс из имеющихся по РК
+PATCH запрос: http://localhost:8000/courses/1/
+
+4. Удалить выбранный по РК курс
+DELETE запрос: http://localhost:8000/courses/4/
+
+
+1. Создать урок, курс вводим по РК
+POST запрос: http://localhost:8000/lesson/create/
+{
+    "name":"Вьюсеты",
+    "course":3
+}
+2. Вывести список уроков
+GET запрос: http://localhost:8000/lesson/
+
+3. Редактировать урок из имеющихся по РК
+PATCH запрос: http://localhost:8000/lesson/update/1/
+
+4. Удалить выбранный по РК урок
+DELETE запрос: http://localhost:8000/lesson/delete/4/

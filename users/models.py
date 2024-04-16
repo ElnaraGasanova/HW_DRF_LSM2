@@ -32,9 +32,9 @@ class Payments(models.Model):
                              related_name='payments')
     payment_date = models.DateTimeField(auto_now=True, verbose_name='Дата оплаты')
     course_paid = models.ForeignKey('lms.Course', on_delete=models.CASCADE, verbose_name='Оплаченный курс',
-                                    related_name='payments')
+                                    related_name='payments', **NULLABLE)
     lesson_paid = models.ForeignKey('lms.Lesson', on_delete=models.CASCADE, verbose_name='Оплаченный урок',
-                                    related_name='payments')
+                                    related_name='payments', **NULLABLE)
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма оплаты')
     payment_method = models.CharField(max_length=100, verbose_name='Способ оплаты')
 

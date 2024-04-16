@@ -24,7 +24,7 @@ class Lesson(models.Model):
                               **NULLABLE)
     video_link = models.URLField(verbose_name='Ссылка', help_text='Укажите ссылку на видео', **NULLABLE)
     course = models.ForeignKey(Course, related_name='courses', on_delete=models.CASCADE,
-                               verbose_name='Курс', help_text='Укажите наименование курса')
+                               verbose_name='Курс', help_text='Укажите наименование курса', **NULLABLE)
 
     def __str__(self):
         '''Добавляем строковое отображение это будет выводиться на сайте в карточке!'''

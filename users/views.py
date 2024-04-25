@@ -1,6 +1,9 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
-from users.models import User
-from users.serializers import UserSerializer
+from rest_framework.filters import OrderingFilter
+
+from users.models import User, Payments
+from users.serializers import UserSerializer, PaymentsSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -9,24 +12,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
 
-class UserListView(generics.ListAPIView):
-    '''Контроллеры на основе дженерик (просмотр списка пользователей).'''
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-
-class UserRetrieveView(generics.RetrieveAPIView):
-    '''Контроллеры на основе дженерик (просмотр пользователя)'''
-    serializer_class = UserSerializer
-
-
-class UserUpdateView(generics.UpdateAPIView):
-    '''Контроллеры на основе дженерик (редактирование пользователя)'''
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-
-class UserDestroyView(generics.DestroyAPIView):
-    '''Контроллеры на основе дженерик (удаление пользователя)'''
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
+class PaymentsListAPIView(generics.ListAPIView):
+    '''Контроллеры на основе дженерик (просмотр списка платежей)'''
+    serializer_class = PaymentsSerializer
+    queryset = Payments.objects.all()
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ('course_paid', 'lesson_paid', 'payment_method',)
+    ordering_fields = ('payment_date',)

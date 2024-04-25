@@ -2,8 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
 from lms.models import Course, Lesson
-from lms.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer
+from lms.serializers import CourseSerializer, LessonSerializer
 from users.models import Payments
+from users.serializers import PaymentsSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -11,9 +12,9 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
 
-    # def get_serializer_class(self):
-    #     if self.action == 'retrieve':
-    #         return CourseSerializer
+    def get_permissions(self):
+        if self.action == 'create':
+            self.permission_classes = [IsAuthenticated, ~IsModerator]
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
@@ -47,12 +48,3 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
     '''Контроллеры на основе дженерик (удаление урока).'''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
-
-
-class PaymentsListAPIView(generics.ListAPIView):
-    '''Контроллеры на основе дженерик (просмотр списка платежей)'''
-    serializer_class = PaymentsSerializer
-    queryset = Payments.objects.all()
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ('course_paid', 'lesson_paid', 'payment_method',)
-    ordering_fields = ('payment_date',)

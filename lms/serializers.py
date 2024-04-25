@@ -13,7 +13,7 @@ class LessonSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     '''Добавляем поле вывода количества уроков.'''
     lessons_count = serializers.SerializerMethodField(default=0)
-    lesson = LessonSerializer(source='lesson_set', many=True, read_only=True)
+    lesson = LessonSerializer(source='courses', many=True, read_only=True)
 
     class Meta:
         model = Course
@@ -21,17 +21,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_lessons_count(self, instance):
         #пеереопределяем метод
-        return instance.lesson_set.count()
+        return instance.courses.count()
 
     # def get_lessons_count(self, instance):
     #     if instance.lessons:
     #         return instance.lessons.count()
     #     else:
     #         return 0
-
-
-class PaymentsSerializer(serializers.ModelSerializer):
-    '''Описываем сериализатор.'''
-    class Meta:
-        model = Payments
-        fields = '__all__'

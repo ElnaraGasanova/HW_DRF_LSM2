@@ -1,15 +1,42 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
-
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from users.models import User, Payments
 from users.serializers import UserSerializer, PaymentsSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    '''Описываем ViewSet для работы с моделью (просмотр списка пользователей).'''
+class UserCreateAPIView(CreateAPIView):
+    '''Контроллеры на основе дженерик (создание пользователя).'''
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+
+    def perform_create(self, serializer):
+        user = serializer.save(is_active=True)
+        user.set_password(user.password)
+        user.save()
+
+
+class UserListAPIView(ListAPIView):
+    '''Контроллеры на основе дженерик (просмотр списка пользователей).'''
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+
+
+class UserUpdateAPIView(UpdateAPIView):
+    '''Контроллеры на основе дженерик (редактирование пользователя).'''
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+
+
+class UserDestroyAPIView(DestroyAPIView):
+    '''Контроллеры на основе дженерик (удаление пользователя).'''
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
 
 
 class PaymentsListAPIView(generics.ListAPIView):

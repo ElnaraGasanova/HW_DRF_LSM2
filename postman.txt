@@ -27,3 +27,19 @@ PATCH запрос: http://localhost:8000/lesson/update/1/
 
 4. Удалить выбранный по РК урок
 DELETE запрос: http://localhost:8000/lesson/delete/4/
+
+5. Создать пользователя
+POST запрос: http://localhost:8000/users/token/
+{
+    "username":"updatetest",
+    "password":"..."
+}
+
+6. Фильтровать список платежей по дате (в обратном порядке -payment_date)
+GET запрос: http://localhost:8000/user/payments/?ordering=payment_date
+
+7. Фильтровать по способу оплаты (наличные cash)
+GET запрос: http://localhost:8000/user/payments/?payment_method=transfer
+
+8. Фильтровать по курсу или уроку (обязательно указываем pk курса или урока!)
+GET запрос: http://localhost:8000/user/payments/?course_paid=5

@@ -1,10 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
+from rest_framework.permissions import IsAuthenticated
 from lms.models import Course, Lesson
 from lms.serializers import CourseSerializer, LessonSerializer
-from users.models import Payments
-from users.serializers import PaymentsSerializer
+from users.permissions import IsModerator
 
 
 class CourseViewSet(viewsets.ModelViewSet):

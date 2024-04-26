@@ -13,14 +13,18 @@ class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
 
     def get_permissions(self):
-        if self.action == 'create':
+        if self.action == 'create' or self.action == 'destroy':
             self.permission_classes = [IsAuthenticated, ~IsModerator]
+        elif self.action in ['list', 'retrieve', 'update']:
+            self.permission_classes = (IsModerator,)
+        return [permission() for permission in self.permission_classes]
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
     '''Контроллеры на основе дженерик (создание урока).'''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class LessonListAPIView(generics.ListAPIView):
@@ -30,21 +34,25 @@ class LessonListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('course',)
     ordering_fields = ('payment_date', 'course', 'payment_method',)
+    permission_classes = [IsModerator]
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
     '''Контроллеры на основе дженерик (просмотр одного урока).'''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    permission_classes = [IsModerator]
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
     '''Контроллеры на основе дженерик (редактирование урока).'''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    permission_classes = [IsModerator]
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
     '''Контроллеры на основе дженерик (удаление урока).'''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated]

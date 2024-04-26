@@ -10,7 +10,7 @@ class Course(models.Model):
                               **NULLABLE)
     description = models.TextField(verbose_name='Описание', **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True,
-                              verbose_name='Автор курса')
+                              verbose_name='Автор курса', help_text='Укажите автора курса')
 
     def __str__(self):
         '''Добавляем строковое отображение это будет выводиться на сайте в карточке!'''
@@ -30,7 +30,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, related_name='courses', on_delete=models.CASCADE,
                                verbose_name='Курс', help_text='Укажите наименование курса', **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True,
-                              verbose_name='Автор урока')
+                              verbose_name='Автор урока', help_text='Укажите автора урока')
 
     def __str__(self):
         '''Добавляем строковое отображение это будет выводиться на сайте в карточке!'''

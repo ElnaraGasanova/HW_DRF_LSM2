@@ -43,3 +43,23 @@ GET запрос: http://localhost:8000/user/payments/?payment_method=transfer
 
 8. Фильтровать по курсу или уроку (обязательно указываем pk курса или урока!)
 GET запрос: http://localhost:8000/user/payments/?course_paid=5
+
+9. Создать нового пользователя
+POST запрос: http://localhost:8000/user/register/
+{
+"email":"user@test.ru",
+"password":"QWErty111"
+}
+
+10. Получить токен пользователя
+POST запрос: http://localhost:8000/user/token/
+{
+"email":"user@test.ru",
+"password":"QWErty111"
+}
+
+11. Просмотреть список уроков: (POST запрос: http://localhost:8000/user/token/)
+* создали пользователя "email":"user@test.ru"
+* получили его токен POST запрос: http://localhost:8000/user/token/
+* в Админке дали этому пользователю права Модератора
+* Ввели токен пользователя в Headers для вывода списка уроков

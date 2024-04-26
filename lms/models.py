@@ -9,7 +9,8 @@ class Course(models.Model):
     image = models.ImageField(upload_to='courses_image', verbose_name='Превью', help_text='Загрузите превью курса',
                               **NULLABLE)
     description = models.TextField(verbose_name='Описание', **NULLABLE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True,
+                              verbose_name='Автор курса')
 
     def __str__(self):
         '''Добавляем строковое отображение это будет выводиться на сайте в карточке!'''
@@ -28,7 +29,8 @@ class Lesson(models.Model):
     video_link = models.URLField(verbose_name='Ссылка', help_text='Укажите ссылку на видео', **NULLABLE)
     course = models.ForeignKey(Course, related_name='courses', on_delete=models.CASCADE,
                                verbose_name='Курс', help_text='Укажите наименование курса', **NULLABLE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True,
+                              verbose_name='Автор урока')
 
     def __str__(self):
         '''Добавляем строковое отображение это будет выводиться на сайте в карточке!'''

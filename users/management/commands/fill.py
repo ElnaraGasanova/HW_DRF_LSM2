@@ -25,7 +25,6 @@ class Command(BaseCommand):
         lesson3, created = Lesson.objects.get_or_create(name='FULL Module')
         lesson4, created = Lesson.objects.get_or_create(name='IND Module')
 
-
         # БД платежей
         Payments.objects.create(
             user=user1,

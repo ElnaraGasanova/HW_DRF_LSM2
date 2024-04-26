@@ -7,7 +7,7 @@ from lms.views import (CourseViewSet, LessonCreateAPIView, LessonListAPIView, Le
 app_name = LmsConfig.name
 
 router = DefaultRouter()
-#подключаем набор контроллеров на основе ViewSet
+# подключаем набор контроллеров на основе ViewSet
 router.register(r'courses', CourseViewSet, basename='courses')
 
 urlpatterns = [

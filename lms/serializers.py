@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from lms.models import Course, Lesson
-from users.models import Payments
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -20,11 +19,5 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_lessons_count(self, instance):
-        #пеереопределяем метод
+        '''Переопределяем метод.'''
         return instance.courses.count()
-
-    # def get_lessons_count(self, instance):
-    #     if instance.lessons:
-    #         return instance.lessons.count()
-    #     else:
-    #         return 0

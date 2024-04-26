@@ -124,7 +124,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 
-#закрываем доступ для НЕ авторизованных пользователей.
+# закрываем доступ для НЕ авторизованных пользователей.
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -134,7 +134,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-#срок действия Токенов
+# срок действия Токенов
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),}
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+}

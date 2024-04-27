@@ -63,3 +63,16 @@ POST запрос: http://localhost:8000/user/token/
 * получили его токен POST запрос: http://localhost:8000/user/token/
 * в Админке дали этому пользователю права Модератора
 * Ввели токен пользователя в Headers для вывода списка уроков
+
+12. Суперюзер с правами модератора:
+* получили его токен POST запрос: http://localhost:8000/user/token/
+* Ввели токен пользователя в Headers для обозначения авторизации
+* Вывести список уроков GET запрос: http://localhost:8000/lesson/
+* Редактировать урок PATCH запрос: http://localhost:8000/lesson/update/10/
+* Удалить урок DELETE запрос: http://localhost:8000/lesson/delete/10/
+!!! ПО КУРСАМ, Т.К. ЭТО ВЬЮСЕТЫ, ТО МЫ НЕ УКАЗЫВАЕМ В ПУТИ CRUD!!!
+Т.е., пусть всегда один и тот же http://localhost:8000/courses/ меняем только pk нужного нам курса
+и САМ МЕТОД ЗАПРОСА!!! GET/PATCH/DELETE/
+* Вывести список курсов GET запрос: http://localhost:8000/courses/
+* Редактировать курс PATCH запрос: http://localhost:8000/courses/2/
+* Удалить курс DELETE запрос: http://localhost:8000/courses/2/

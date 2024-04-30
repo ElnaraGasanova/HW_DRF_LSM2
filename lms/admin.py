@@ -1,5 +1,5 @@
 from django.contrib import admin
-from lms.models import Course, Lesson
+from lms.models import Course, Lesson, Subscription
 
 
 @admin.register(Course)
@@ -13,3 +13,10 @@ class LessonAdmin(admin.ModelAdmin):
     '''Отображение списка Уроков'''
     list_display = ('name', 'course', 'owner',)
     search_fields = ('name',)
+
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    '''Отображение списка Уроков'''
+    list_display = ('user', 'course', 'subscription_is_active',)
+    search_fields = ('user',)

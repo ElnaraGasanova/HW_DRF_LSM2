@@ -65,7 +65,7 @@ POST запрос: http://localhost:8000/user/token/
 * Ввели токен пользователя в Headers для вывода списка уроков
 
 12. Суперюзер с правами модератора:
-* получили его токен POST запрос: http://localhost:8000/user/token/
+* Получили его токен POST запрос: http://localhost:8000/user/token/
 * Ввели токен пользователя в Headers для обозначения авторизации
 * Вывести список уроков GET запрос: http://localhost:8000/lesson/
 * Редактировать урок PATCH запрос: http://localhost:8000/lesson/update/10/
@@ -76,3 +76,21 @@ POST запрос: http://localhost:8000/user/token/
 * Вывести список курсов GET запрос: http://localhost:8000/courses/
 * Редактировать курс PATCH запрос: http://localhost:8000/courses/2/
 * Удалить курс DELETE запрос: http://localhost:8000/courses/2/
+
+13. Работа с подпиской:
+* получили токен пользователя new_user@sky.pro POST запрос: http://localhost:8000/user/token/
+{
+    "email":"new_user@sky.pro",
+    "password":"QWErty111"
+}
+* Ввели токен пользователя в Headers для обозначения авторизации
+* Создать публикацию POST запрос: http://localhost:8000/subscription/create/
+{
+    "user":8,
+    "course":3
+}
+* Вывести список публикаций GET запрос: http://localhost:8000/subscription/
+* Добавить ссылку на ютуб PATCH запрос: http://localhost:8000/lesson/update/11/
+{
+    "video_link":"https://www.nic.ru/help/dlya-chego-ispol6zuetsya-django-rest-framework_11684.html"
+}

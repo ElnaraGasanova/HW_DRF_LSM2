@@ -8,5 +8,6 @@ class URLValidator:
 
     def __call__(self, value):
         '''Функция проверки допустимой ссылки.'''
-        if 'youtube.com' not in value:
-            raise ValidationError('Ошибка валидации, ссылка возможна только на сайт "youtube.com"')
+        tmp_url = dict(value).get(self.field)
+        if tmp_url is not None and 'youtube.com' not in tmp_url:
+            raise ValidationError("Ошибка валидации, ссылка возможна только на сайт 'youtube.com'")

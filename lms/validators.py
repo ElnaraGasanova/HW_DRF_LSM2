@@ -1,13 +1,14 @@
-from rest_framework.serializers import ValidationError
+import re
+from rest_framework import serializers
 
 
 class URLValidator:
     '''Класс валидации ссылки.'''
-    def __init__(self, field):
+    def __init__(self, field) -> None:
         self.field = field
 
     def __call__(self, value):
+        #value.get(self.field)
         '''Функция проверки допустимой ссылки.'''
-        tmp_url = dict(value).get(self.field)
-        if tmp_url is not None and 'youtube.com' not in tmp_url:
-            raise ValidationError("Ошибка валидации, ссылка возможна только на сайт 'youtube.com'")
+        if not re.match(r'^https?://(www\.)?youtube\.com/', value):
+            raise serializers.ValidationError("Ошибка валидации, ссылка возможна только на сайт 'youtube.com'")

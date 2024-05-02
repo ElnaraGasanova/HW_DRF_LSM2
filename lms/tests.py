@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from lms.models import Course, Lesson, Subscription
+from lms.models import Course, Lesson
 from users.models import User
 
 
@@ -27,7 +27,7 @@ class LessonTestCase(APITestCase):
     def test_lesson_create(self):
         url = reverse('lms:lesson_create')
         data = {
-            "name": "Test_Lesson"
+            "name": "Testing_Lesson"
         }
         response = self.client.post(url, data)
         self.assertEqual(
@@ -65,23 +65,22 @@ class LessonTestCase(APITestCase):
         url = reverse('lms:lesson_list')
         response = self.client.get(url)
         data = response.json()
-        result = {
-                "count": 1,
-                "next": None,
-                "previous": None,
-                "results": [
-                    {
-                        "id": self.lesson.pk,
-                        "name": self.lesson.name,
-                        "description": self.lesson.description,
-                        "image": None,
-                        "video_link": None,
-                        "course": self.course.pk,
-                        "owner": self.user.pk,
-                    },
-
-                            ]
-                }
+        result ={
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results":[
+                {
+                    "id": self.lesson.pk,
+                    "name": self.lesson.name,
+                    "description": self.lesson.description,
+                    "image": None,
+                    "video_link": None,
+                    "course": self.course.pk,
+                    "owner": self.user.pk,
+                },
+            ]
+        }
         self.assertEqual(
             response.status_code, status.HTTP_200_OK
         )
@@ -89,7 +88,7 @@ class LessonTestCase(APITestCase):
             data, result
         )
 
-
+#
 # class CourseTestCase(APITestCase):
 #
 #     def setUp(self):

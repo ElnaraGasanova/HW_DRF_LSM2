@@ -8,7 +8,7 @@ class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
-        validators = [URLValidator(field='video_url')]
+        validators = [URLValidator(field='video_link')]
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
-        validators = [URLValidator(field='video_url')]
+        validators = [URLValidator(field='video_link')]
 
     def get_lessons_count(self, instance):
         '''Переопределяем метод.'''

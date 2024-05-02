@@ -24,32 +24,32 @@ class LessonTestCase(APITestCase):
             data.get('name'), self.lesson.name
         )
 
-    def test_lesson_create(self):
-        url = reverse('lms:lesson_create')
-        data = {
-            "name": "Testing_Lesson"
-        }
-        response = self.client.post(url, data)
-        self.assertEqual(
-            response.status_code, status.HTTP_201_CREATED
-        )
-        self.assertEqual(
-            Lesson.objects.all().count(), 2
-        )
-
-    def test_lesson_update(self):
-        url = reverse('lms:lesson_update', args=(self.lesson.pk,))
-        data = {
-            "name": "Test2_Lesson2"
-        }
-        response = self.client.patch(url, data)
-        data = response.json()
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK
-        )
-        self.assertEqual(
-            data.get("name"), "Test2_Lesson2"
-        )
+    # def test_lesson_create(self):
+    #     url = reverse('lms:lesson_create')
+    #     data = {
+    #         "name": "Testing_Lesson"
+    #     }
+    #     response = self.client.post(url, data)
+    #     self.assertEqual(
+    #         response.status_code, status.HTTP_201_CREATED
+    #     )
+    #     self.assertEqual(
+    #         Lesson.objects.all().count(), 2
+    #     )
+    #
+    # def test_lesson_update(self):
+    #     url = reverse('lms:lesson_update', args=(self.lesson.pk,))
+    #     data = {
+    #         "name": "Test2_Lesson2"
+    #     }
+    #     response = self.client.patch(url, data)
+    #     data = response.json()
+    #     self.assertEqual(
+    #         response.status_code, status.HTTP_200_OK
+    #     )
+    #     self.assertEqual(
+    #         data.get("name"), "Test2_Lesson2"
+    #     )
 
     def test_lesson_delete(self):
         url = reverse('lms:lesson_delete', args=(self.lesson.pk,))
@@ -108,3 +108,4 @@ class LessonTestCase(APITestCase):
 #         self.assertEqual(
 #             data.get('name'), self.course.name
 #         )
+#

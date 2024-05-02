@@ -8,7 +8,7 @@ class URLValidator:
         self.field = field
 
     def __call__(self, value):
-        #value.get(self.field)
         '''Функция проверки допустимой ссылки.'''
+        value = value.get(self.field)
         if not re.match(r'^https?://(www\.)?youtube\.com/', value):
             raise serializers.ValidationError("Ошибка валидации, ссылка возможна только на сайт 'youtube.com'")

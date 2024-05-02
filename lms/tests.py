@@ -24,23 +24,27 @@ class LessonTestCase(APITestCase):
             data.get('name'), self.lesson.name
         )
 
-    # def test_lesson_create(self):
-    #     url = reverse('lms:lesson_create')
-    #     data = {
-    #         "name": "Testing_Lesson"
-    #     }
-    #     response = self.client.post(url, data)
-    #     self.assertEqual(
-    #         response.status_code, status.HTTP_201_CREATED
-    #     )
-    #     self.assertEqual(
-    #         Lesson.objects.all().count(), 2
-    #     )
-    #
+    def test_lesson_create(self):
+        url = reverse('lms:lesson_create')
+        data = {
+            "name": "Testing_Lesson",
+            "description": "Тестируемся",
+            "video_link": "https://www.youtube.com/watch?v=EVrMbS14FdE",
+            "course": 1
+        }
+        response = self.client.post(url, data)
+        self.assertEqual(
+            response.status_code, status.HTTP_201_CREATED
+        )
+        self.assertEqual(
+            Lesson.objects.all().count(), 2
+        )
+
     # def test_lesson_update(self):
     #     url = reverse('lms:lesson_update', args=(self.lesson.pk,))
     #     data = {
-    #         "name": "Test2_Lesson2"
+    #         "name": "Test2_Lesson2",
+    #         "description": "Редактиреум"
     #     }
     #     response = self.client.patch(url, data)
     #     data = response.json()

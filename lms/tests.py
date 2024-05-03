@@ -40,20 +40,20 @@ class LessonTestCase(APITestCase):
             Lesson.objects.all().count(), 2
         )
 
-    # def test_lesson_update(self):
-    #     url = reverse('lms:lesson_update', args=(self.lesson.pk,))
-    #     data = {
-    #         "name": "Test2_Lesson2",
-    #         "description": "Редактиреум"
-    #     }
-    #     response = self.client.patch(url, data)
-    #     data = response.json()
-    #     self.assertEqual(
-    #         response.status_code, status.HTTP_200_OK
-    #     )
-    #     self.assertEqual(
-    #         data.get("name"), "Test2_Lesson2"
-    #     )
+    def test_lesson_update(self):
+        url = reverse('lms:lesson_update', args=(self.lesson.pk,))
+        data = {
+            "name": "Test2_Lesson2",
+            "description": "Редактиреум"
+        }
+        response = self.client.patch(url, data)
+        data = response.json()
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            data.get("name"), "Test2_Lesson2"
+        )
 
     def test_lesson_delete(self):
         url = reverse('lms:lesson_delete', args=(self.lesson.pk,))
@@ -92,7 +92,7 @@ class LessonTestCase(APITestCase):
             data, result
         )
 
-#
+
 # class CourseTestCase(APITestCase):
 #
 #     def setUp(self):
@@ -103,7 +103,7 @@ class LessonTestCase(APITestCase):
 #         self.client.force_authenticate(user=self.user)
 #
 #     def test_course_retrieve(self):
-#         url = reverse('lms:course-detail', args=(self.course.pk,))
+#         url = reverse('lms:courses-detail', args=(self.course.pk,))
 #         response = self.client.get(url)
 #         data = response.json()
 #         self.assertEqual(
@@ -112,4 +112,3 @@ class LessonTestCase(APITestCase):
 #         self.assertEqual(
 #             data.get('name'), self.course.name
 #         )
-#

@@ -36,8 +36,14 @@ class Payments(models.Model):
                                     related_name='payments', **NULLABLE)
     lesson_paid = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Оплаченный урок',
                                     related_name='payments', **NULLABLE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма оплаты')
-    payment_method = models.CharField(max_length=100, verbose_name='Способ оплаты')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма оплаты',
+                                 help_text='Укажите сумму платежа')
+    payment_method = models.CharField(max_length=100, verbose_name='Способ оплаты', **NULLABLE)
+    payment_link = models.URLField(max_length=400, verbose_name='Ссылка на оплату',
+                                   help_text='Укажите ссылку на оплату', **NULLABLE)
+    session_id = models.CharField(max_length=255, verbose_name='ID Сессии', help_text='Укажите ID Сессии',
+                                  **NULLABLE)
+
 
     def __str__(self):
         return f'Оплата от {self.user} в размере {self.amount}'

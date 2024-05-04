@@ -158,3 +158,5 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 CUR_API_URL = 'https://api.currencyapi.com/'
 CUR_API_KEY = os.getenv('CUR_API_KEY')
+
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')

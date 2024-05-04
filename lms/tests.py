@@ -30,7 +30,7 @@ class LessonTestCase(APITestCase):
             "name": "Testing_Lesson",
             "description": "Тестируемся",
             "video_link": "https://www.youtube.com/watch?v=EVrMbS14FdE",
-            "course": 1
+            "course": self.course.pk,
         }
         response = self.client.post(url, data)
         self.assertEqual(
@@ -93,22 +93,22 @@ class LessonTestCase(APITestCase):
         )
 
 
-# class CourseTestCase(APITestCase):
-#
-#     def setUp(self):
-#         self.user = User.objects.create(email='test_admin@sky.pro')
-#         self.course = Course.objects.create(name='C++', description='Язык программирования общего назначения',
-#                                             owner=self.user)
-#         self.lesson = Lesson.objects.create(name='Test_Modul', course=self.course, owner=self.user)
-#         self.client.force_authenticate(user=self.user)
-#
-#     def test_course_retrieve(self):
-#         url = reverse('lms:courses-detail', args=(self.course.pk,))
-#         response = self.client.get(url)
-#         data = response.json()
-#         self.assertEqual(
-#             response.status_code, status.HTTP_200_OK
-#         )
-#         self.assertEqual(
-#             data.get('name'), self.course.name
-#         )
+class CourseTestCase(APITestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(email='test_admin@sky.pro')
+        self.course = Course.objects.create(name='C++', description='Язык программирования общего назначения',
+                                            owner=self.user)
+        self.lesson = Lesson.objects.create(name='Test_Modul', course=self.course, owner=self.user)
+        self.client.force_authenticate(user=self.user)
+
+    def test_course_retrieve(self):
+        url = reverse('lms:courses-detail', args=(self.course.pk,))
+        response = self.client.get(url)
+        data = response.json()
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            data.get('name'), self.course.name
+        )

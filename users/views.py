@@ -39,6 +39,18 @@ class UserDestroyAPIView(DestroyAPIView):
     permission_classes = (IsAuthenticated,)
 
 
+class PaymentsCreateAPIView(CreateAPIView):
+    '''Контроллеры на основе дженерик (создание платежа).'''
+    serializer_class = PaymentsSerializer
+    queryset = Payments.objects.all()
+
+    def perform_create(self, serializer):
+        # user = serializer.save(is_active=True)
+        # user.set_password(user.password)
+        # user.save()
+        pass
+
+
 class PaymentsListAPIView(generics.ListAPIView):
     '''Контроллеры на основе дженерик (просмотр списка платежей)'''
     serializer_class = PaymentsSerializer

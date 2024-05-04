@@ -3,7 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 
 class LessonPagination(PageNumberPagination):
     # Количество элементов на странице
-    page_size = 1
+    page_size = 10
     # Параметр запроса количества элементов на странице
     page_size_query_param = ('page_size')
     # Максимальное количество элементов на странице
@@ -12,7 +12,7 @@ class LessonPagination(PageNumberPagination):
 
 class CoursePagination(PageNumberPagination):
     # Количество элементов на странице
-    page_size = 1
+    page_size = 10
     # Параметр запроса количества элементов на странице
     page_size_query_param = ('page_size')
     # Максимальное количество элементов на странице

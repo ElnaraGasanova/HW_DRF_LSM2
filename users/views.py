@@ -5,6 +5,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, D
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from users.models import User, Payments
 from users.serializers import UserSerializer, PaymentsSerializer
+from users.services import create_stripe_price, create_stripe_sessions, create_stripe_product
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -45,10 +46,14 @@ class PaymentsCreateAPIView(CreateAPIView):
     queryset = Payments.objects.all()
 
     def perform_create(self, serializer):
-        # user = serializer.save(is_active=True)
-        # user.set_password(user.password)
-        # user.save()
-        pass
+        payments = serializer.save(user=self.request.user)
+        product = create_stripe_product(payments)
+        price = create_stripe_price(payments.amount, product)
+        session_link, session_id = create_stripe_sessions(price)
+        payments.session_id = session_link
+        payments.payment_link = session_id
+        payments.save()
+
 
 
 class PaymentsListAPIView(generics.ListAPIView):

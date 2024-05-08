@@ -6,6 +6,7 @@ from lms.models import Course, Lesson, Subscription
 from lms.paginators import LessonPagination, CoursePagination
 from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
 from users.permissions import IsModerator, IsOwner
+from lms.tasks import send_message_for_update
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -27,6 +28,12 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        """Метод для запуска функции отправки сообщения, при обновлении курса."""
+        update_course = serializer.save()
+        send_message_for_update.delay(update_course.id)
+        update_course.save()
 
 
 class LessonCreateAPIView(generics.CreateAPIView):

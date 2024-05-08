@@ -94,3 +94,8 @@ POST запрос: http://localhost:8000/user/token/
 {
     "video_link":"https://www.nic.ru/help/dlya-chego-ispol6zuetsya-django-rest-framework_11684.html"
 }
+
+ЗАПУСК CELERY
+1. python manage.py runserver
+2. celery -A config worker -l INFO -P eventlet
+3. celery -A config beat -l INFO

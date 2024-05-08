@@ -30,7 +30,7 @@ class CourseSerializer(serializers.ModelSerializer):
         '''Наличие подписки у пользователя.'''
         user = self.context["request"].user
         if user.is_authenticated:
-            return Subscription.objects.filter(user=user, courses=instance, subscription_is_active=True).exists()
+            return Subscription.objects.filter(user=user, course=instance, subscription_is_active=True).exists()
         return False
 
 

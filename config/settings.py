@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'corsheaders',
+    'django_celery_beat',
 
     'users',
     'lms',
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -158,3 +160,41 @@ CORS_ALLOW_ALL_ORIGINS = False
 # CUR_API_KEY = os.getenv('CUR_API_KEY')
 
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+
+#сюда складываются задачи очереди
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = 'redis://localhost:6379'
+
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+
+# настройка авторизации по Токену
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Basic': {
+            'type': 'basic'
+      },
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
+}
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')      #указываем свою yandex почту
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')        #указываем пароль для ПРИЛОЖЕНИЯ!!! а НЕ почты!!!
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+CELERY_BEAT_SCHEDULE = {
+    'deactivate_user': {
+        'task': 'users.tasks.user_blocking',
+        'schedule': timedelta(minutes=1),
+    },
+}

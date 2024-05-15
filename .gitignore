@@ -186,3 +186,8 @@ fabric.properties
 
 # .env здесь находится API_KEY, поэтому не передаем никуда данный файл!
 .env
+
+# celery файлы, загружаемые автоматически при запуске worker и beat
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir

@@ -149,14 +149,26 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-CORS_ALLOWED_ORIGINS = [*ALLOWED_HOSTS]     # Замените на адрес вашего фронтенд-сервера
+#CORS_ALLOWED_ORIGINS = [*ALLOWED_HOSTS]     # Замените на адрес вашего фронтенд-сервера
 
 CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com", #  Замените на адрес вашего фронтенд-сервера
 # и добавьте адрес бэкенд-сервера
 ]
 
-CORS_ALLOW_ALL_ORIGINS = False
+#CORS_ALLOW_ALL_ORIGINS = False
+
+# Корректировки CORS от Наставника Олега Маслова.
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+
+    'http://localhost:8000',
+
+]
+
+CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
+CORS_ALLOWED_ORIGINS = CORS_ORIGIN_WHITELIST
 
 # CUR_API_URL = 'https://api.currencyapi.com/'
 # CUR_API_KEY = os.getenv('CUR_API_KEY')

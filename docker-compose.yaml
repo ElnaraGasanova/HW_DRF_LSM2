@@ -50,11 +50,10 @@ services:
       - app
     env_file:
       - .env
-
   celery-beat:
     build: .
     tty: true
-    command: celery -A config worker --beat --scheduler django --loglevel=info
+    command: celery -A config beat -l INFO
     restart: on-failure
     volumes:
       - .:/app
@@ -64,7 +63,5 @@ services:
       - app
     env_file:
       - .env
-
-
 volumes:
   pg_data:
